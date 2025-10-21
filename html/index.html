@@ -12,6 +12,9 @@
       padding: 0;
       line-height: 1.5;
       color: #222;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
 
     header {
@@ -26,15 +29,14 @@
       margin: auto;
       padding: 20px;
       background-color: white;
+      display: none; /* initially hidden */
     }
 
-    h1, h2, h3 {
-      margin-top: 30px;
-      margin-bottom: 10px;
-    }
-
-    p, li {
-      margin-bottom: 10px;
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #eee;
+      margin-top: auto;
     }
 
     table {
@@ -43,11 +45,8 @@
       margin: 15px 0;
     }
 
-    table, th, td {
-      border: 1px solid #ccc;
-    }
-
     th, td {
+      border: 1px solid #ccc;
       padding: 8px;
       text-align: left;
     }
@@ -56,15 +55,43 @@
       background-color: #f2f2f2;
     }
 
+    h1, h2 {
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
     section {
       margin-bottom: 30px;
     }
 
-    footer {
-      text-align: center;
-      padding: 15px;
-      background-color: #eee;
-      margin-top: 40px;
+    #password-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 70vh;
+    }
+
+    #password-container input {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px 0;
+      width: 250px;
+    }
+
+    #password-container button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+
+    #error-msg {
+      color: red;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -75,7 +102,14 @@
   <p>Diplomarbeit – Formularfelder für Genehmigungsverfahren</p>
 </header>
 
-<main>
+<div id="password-container">
+  <h2>Bitte Passwort eingeben, um den Antrag zu sehen:</h2>
+  <input type="password" id="password-input" placeholder="Passwort">
+  <button onclick="checkPassword()">Bestätigen</button>
+  <div id="error-msg"></div>
+</div>
+
+<main id="content">
   <section id="general-info">
     <h2>Allgemeine Informationen</h2>
     <p><strong>Beteiligte Schüler/Schülerinnen:</strong> Borovský František, Hilber Leonhard, Kircher Marcel</p>
@@ -200,6 +234,23 @@
 <footer>
   &copy; 2025 Antrag Diplomarbeit | <a href="https://thereachproject.com" target="_blank">thereachproject.com</a>
 </footer>
+
+<script>
+  const password = "Diplom2026"; // Passwort hier festlegen
+  const content = document.getElementById('content');
+  const passwordContainer = document.getElementById('password-container');
+  const errorMsg = document.getElementById('error-msg');
+
+  function checkPassword() {
+    const userInput = document.getElementById('password-input').value;
+    if(userInput === password) {
+      content.style.display = "block";
+      passwordContainer.style.display = "none";
+    } else {
+      errorMsg.textContent = "Falsches Passwort, bitte erneut versuchen.";
+    }
+  }
+</script>
 
 </body>
 </html>
